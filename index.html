@@ -2,234 +2,424 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Brick Swipe – Datenschutzerklärung / Privacy Policy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Brick Swipe – Datenschutzerklärung · Privacy Policy</title>
+<meta name="description" content="Was Brick Swipe speichert, wo es liegt und wer es sehen kann. · What Brick Swipe stores, where it lives and who can see it.">
+<script>
+  // Sprache vor dem ersten Zeichnen festlegen: #de / #en in der Adresse,
+  // sonst die Sprache des Geräts. Ohne JavaScript stehen beide untereinander.
+  (function () {
+    var h = location.hash.slice(1);
+    var geraet = ((navigator.languages && navigator.languages[0]) || navigator.language || "en").toLowerCase();
+    var l = (h === "de" || h === "en") ? h : (geraet.indexOf("de") === 0 ? "de" : "en");
+    document.documentElement.setAttribute("data-lang", l);
+    document.documentElement.lang = l;
+  })();
+</script>
 <style>
   :root {
-    --bg: #f6f5f2;
-    --card: #ffffff;
-    --text: #1c1c1e;
-    --muted: #6b6b70;
-    --line: #e3e1dc;
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --muted: #6e6e73;
+    --line: #e7e4df;
     --accent: #e8632a;
+    --accent-soft: #fcede5;
+    --on-accent: #ffffff;
+    --ok: #2f9e5b;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #131315;
-      --card: #1c1c1f;
+      --bg: #111113;
+      --surface: #1b1b1e;
       --text: #f2f2f4;
-      --muted: #9a9aa0;
-      --line: #2c2c30;
+      --muted: #9d9da3;
+      --line: #2c2c31;
       --accent: #ff8a4c;
+      --accent-soft: #2b1e17;
+      --on-accent: #1c1008;
+      --ok: #45b873;
     }
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 72px; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    padding: 32px 20px 80px;
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  main { max-width: 720px; margin: 0 auto; }
-  header { text-align: center; margin-bottom: 36px; }
-  h1 { font-size: 30px; margin: 0 0 6px; letter-spacing: -0.4px; }
-  .sub { color: var(--muted); font-size: 15px; }
-  section {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 24px 26px;
-    margin-bottom: 20px;
-  }
-  h2 {
-    font-size: 20px; margin: 0 0 14px;
-    padding-bottom: 10px; border-bottom: 2px solid var(--accent);
-    display: inline-block;
-  }
-  h3 { font-size: 16px; margin: 22px 0 8px; }
-  p, li { color: var(--text); }
-  ul { padding-left: 22px; }
-  li { margin-bottom: 7px; }
-  .note {
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    border-left: 3px solid var(--accent);
-    padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0;
-    font-size: 15px;
-  }
-  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
-  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); }
-  th { color: var(--muted); font-weight: 600; font-size: 13px;
-       text-transform: uppercase; letter-spacing: 0.4px; }
-  footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 32px; }
   a { color: var(--accent); }
-  .lang { text-align: center; margin-bottom: 26px; }
-  .lang a {
-    display: inline-block; padding: 7px 16px; margin: 0 4px;
-    border: 1px solid var(--line); border-radius: 999px;
-    text-decoration: none; font-size: 14px; font-weight: 600;
+  .wrap { max-width: 680px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+
+  /* Kopfleiste */
+  .bar {
+    position: sticky; top: 0; z-index: 5;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: var(--bg);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    -webkit-backdrop-filter: saturate(1.5) blur(14px);
+    backdrop-filter: saturate(1.5) blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: -0.01em; }
+  .mark { display: grid; grid-template-columns: repeat(2, 10px); gap: 3px; }
+  .mark i { width: 10px; height: 10px; border-radius: 3px; background: var(--accent); }
+  .mark i:nth-child(2) { opacity: .55; }
+  .mark i:nth-child(3) { opacity: .3; }
+  .mark i:nth-child(4) { opacity: .8; }
+  .switch { display: inline-flex; gap: 2px; padding: 3px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
+  .switch a { padding: 4px 12px; border-radius: 999px; color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 650; }
+  html[data-lang="de"] .switch a[href="#de"],
+  html[data-lang="en"] .switch a[href="#en"] { background: var(--accent); color: var(--on-accent); }
+
+  /* Sprachen */
+  html[data-lang="de"] article[lang="en"],
+  html[data-lang="en"] article[lang="de"] { display: none; }
+  html:not([data-lang]) article + article { margin-top: 64px; border-top: 1px solid var(--line); }
+
+  /* Einstieg */
+  .hero { padding: 48px 0 0; }
+  .eyebrow { margin: 0 0 10px; color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  h1 { margin: 0 0 14px; font-size: clamp(28px, 6.4vw, 40px); line-height: 1.12; letter-spacing: -0.025em; }
+  .lead { margin: 0; color: var(--muted); font-size: 18px; line-height: 1.55; }
+
+  .facts { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .facts li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    font-size: 15px; line-height: 1.45; font-weight: 550;
+  }
+  .facts li::before {
+    content: ""; flex: none; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%;
+    background: var(--ok) url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27white%27 stroke-width=%273.4%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M5.5 12.5l4 4 9-9%27/%3E%3C/svg%3E") center / 12px no-repeat;
+  }
+
+  h2 { margin: 56px 0 14px; font-size: 22px; line-height: 1.3; letter-spacing: -0.015em; }
+  article p { margin: 0 0 12px; }
+
+  /* Speicherorte */
+  .places { display: grid; gap: 12px; }
+  .place {
+    display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px;
+    padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+  }
+  .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+  .ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .place h3 { margin: 0 0 4px; font-size: 17px; line-height: 1.35; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+  .tag { font-size: 12px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; }
+  .place p { margin: 0 0 12px; }
+  .place ul { margin: 0 0 14px; padding-left: 18px; }
+  .place li { margin-bottom: 3px; }
+  dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; font-size: 15px; }
+  dt { color: var(--muted); font-weight: 600; }
+  dd { margin: 0; }
+
+  /* Schritte */
+  .steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; }
+  .steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 14px; font-weight: 700; }
+
+  .card { padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+  .contact { margin-top: 56px; }
+  .contact h2 { margin: 0 0 6px; font-size: 18px; }
+  .contact p { margin: 0 0 14px; }
+  .mail { display: inline-block; padding: 9px 18px; border-radius: 999px; background: var(--accent); color: var(--on-accent); text-decoration: none; font-size: 15px; font-weight: 650; }
+  .stand { margin: 20px 0 0; color: var(--muted); font-size: 14px; }
+  footer { padding: 40px 20px calc(48px + env(safe-area-inset-bottom, 0px)); text-align: center; color: var(--muted); font-size: 13px; }
+
+  @media (max-width: 560px) {
+    .facts { grid-template-columns: 1fr; }
+    .lead { font-size: 17px; }
+  }
+  @media (max-width: 440px) {
+    .place { grid-template-columns: 1fr; gap: 12px; padding: 18px; }
+    dl { grid-template-columns: 1fr; gap: 0; }
+    dd { margin-bottom: 8px; }
   }
 </style>
 </head>
 <body>
-<main>
 
-<header>
-  <h1>Brick Swipe</h1>
-  <div class="sub">Datenschutzerklärung &middot; Privacy Policy</div>
-</header>
-
-<div class="lang">
-  <a href="#de">Deutsch</a>
-  <a href="#en">English</a>
-</div>
-
-<!-- ============ DEUTSCH ============ -->
-<section id="de">
-  <h2>Datenschutzerklärung</h2>
-
-  <p>Brick Swipe ist ein Puzzlespiel ohne Werbung, ohne Analysewerkzeuge und
-  ohne Bibliotheken von Drittanbietern. Es werden ausschließlich Dienste von
-  Apple verwendet.</p>
-
-  <div class="note">
-    <strong>Kurz gesagt:</strong> Es gibt keinen eigenen Server. Alle Daten
-    liegen bei Apple oder auf deinem Gerät. Nichts wird verkauft, an Dritte
-    weitergegeben oder für Werbung ausgewertet.
+<nav class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Brick Swipe</a>
+    <div class="switch" role="group" aria-label="Sprache · Language">
+      <a href="#de" hreflang="de" lang="de">DE</a>
+      <a href="#en" hreflang="en" lang="en">EN</a>
+    </div>
   </div>
+</nav>
 
-  <h3>Welche Daten verarbeitet werden</h3>
-  <table>
-    <tr><th>Daten</th><th>Wo</th><th>Wozu</th></tr>
-    <tr>
-      <td>Spielstand, Punkte, Einstellungen</td>
-      <td>Auf dem Gerät und in deinem privaten iCloud-Speicher</td>
-      <td>Damit dein Spielstand auf deinen Geräten gleich ist</td>
-    </tr>
-    <tr>
-      <td>Game-Center-Name und Bestenlisten&shy;punkte</td>
-      <td>Game Center (Apple)</td>
-      <td>Bestenliste</td>
-    </tr>
-    <tr>
-      <td>Game-Center-Name, Spielerkennung, Rekord, Zeitpunkt der letzten
-          Nutzung</td>
-      <td>Öffentliche CloudKit-Datenbank</td>
-      <td>Spielerübersicht und Freischaltung von Designs</td>
-    </tr>
-    <tr>
-      <td>Bewegungssensor</td>
-      <td>Nur auf dem Gerät, nichts wird gespeichert</td>
-      <td>Tiefenwirkung im Design „Galaxy“</td>
-    </tr>
-  </table>
+<main class="wrap" id="top">
 
-  <h3>Öffentlich sichtbar</h3>
-  <p>Die Einträge in der CloudKit-Datenbank können von anderen Personen
-  gelesen werden, die Brick Swipe nutzen. Dort stehen <strong>nur</strong>
-  dein Game-Center-Name, deine von Apple vergebene Spielerkennung, dein
-  Rekord und der Zeitpunkt deiner letzten Nutzung. Das entspricht dem, was
-  ohnehin in einer Bestenliste steht. Dein laufender Spielstand bleibt
-  privat und wird dort nicht abgelegt.</p>
+<!-- ======================= DEUTSCH ======================= -->
+<article lang="de" id="de">
+  <header class="hero">
+    <p class="eyebrow">Datenschutzerklärung</p>
+    <h1>Was Brick Swipe speichert – und was nicht.</h1>
+    <p class="lead">Brick Swipe hat keinen eigenen Server und zeigt keine Werbung. Hier steht, welche Daten es gibt, wo sie liegen und wer sie sehen kann.</p>
+  </header>
 
-  <h3>Was nicht passiert</h3>
-  <ul>
-    <li>Keine Werbung und keine Werbekennungen</li>
-    <li>Keine Analyse- oder Tracking-Werkzeuge</li>
-    <li>Keine Weitergabe oder kein Verkauf von Daten</li>
-    <li>Keine Erfassung von Name, E-Mail-Adresse, Standort oder Kontakten</li>
-    <li>Keine Verbindung zu Servern außerhalb von Apple</li>
+  <ul class="facts">
+    <li>Keine Werbung, kein Tracking, keine Analysewerkzeuge</li>
+    <li>Kein eigener Server – nur Dienste von Apple</li>
+    <li>Kein Zugriff auf Kamera, Mikrofon, Fotos, Kontakte oder Standort</li>
+    <li>Keine Weitergabe und kein Verkauf von Daten</li>
   </ul>
 
-  <h3>Kinder</h3>
-  <p>Das Spiel richtet sich an alle Altersgruppen und erhebt keine Daten,
-  die eine Person außerhalb von Game Center identifizieren.</p>
+  <h2>Wo welche Daten liegen</h2>
+  <div class="places">
+    <section class="place">
+      <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 18.3h3"/></svg></div>
+      <div>
+        <h3>Auf deinem Gerät</h3>
+        <p>Laufende Partie, Rekord, Statistik und Einstellungen.</p>
+        <dl>
+          <dt>Wozu</dt><dd>Damit das Spiel beim nächsten Start dort weitergeht, wo du aufgehört hast.</dd>
+          <dt>Sichtbar für</dt><dd>Nur dich.</dd>
+        </dl>
+      </div>
+    </section>
 
-  <h3>Löschung</h3>
-  <p>Wenn du deinen Eintrag aus der öffentlichen Datenbank entfernt haben
-  möchtest, schreib eine Nachricht an die unten genannte Adresse und nenne
-  deinen Game-Center-Namen. Der Eintrag wird dann gelöscht. Deine privaten
-  Spieldaten löschst du, indem du die App entfernst; die iCloud-Kopie kannst
-  du in den iOS-Einstellungen unter <em>Apple-ID → iCloud</em> löschen.</p>
+    <section class="place">
+      <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a4.25 4.25 0 0 0 .55-8.46A5.75 5.75 0 0 0 6.4 9.2 4.7 4.7 0 0 0 7 18.5z"/></svg></div>
+      <div>
+        <h3>In deinem privaten iCloud-Speicher <span class="tag">nur mit iCloud</span></h3>
+        <p>Rekord, Statistik (Partien, höchste Kachel, Punkte, Züge, Verschmelzungen) und Einstellungen (Design, Erscheinungsbild, Haptik, Meilenstein-Animationen, Lautstärke von Musik und Effekten). Die laufende Partie wird nicht übertragen.</p>
+        <dl>
+          <dt>Wozu</dt><dd>Derselbe Stand auf allen deinen Geräten mit derselben Apple-ID.</dd>
+          <dt>Sichtbar für</dt><dd>Nur dich. Der Entwickler hat keinen Zugriff.</dd>
+        </dl>
+      </div>
+    </section>
 
-  <h3>Änderungen</h3>
-  <p>Änderungen dieser Erklärung werden auf dieser Seite veröffentlicht.</p>
-</section>
+    <section class="place">
+      <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5h17"/><rect x="4.5" y="12" width="4.2" height="8.5" rx="1"/><rect x="9.9" y="6.5" width="4.2" height="14" rx="1"/><rect x="15.3" y="9.5" width="4.2" height="11" rx="1"/></svg></div>
+      <div>
+        <h3>Game Center <span class="tag">nur mit Game Center</span></h3>
+        <p>Dein Rekord in der Bestenliste, zusammen mit deinem Game-Center-Namen.</p>
+        <dl>
+          <dt>Wozu</dt><dd>Bestenliste.</dd>
+          <dt>Sichtbar für</dt><dd>Andere Game-Center-Spieler, je nach deinen Game-Center-Einstellungen.</dd>
+        </dl>
+      </div>
+    </section>
 
-<!-- ============ ENGLISH ============ -->
-<section id="en">
-  <h2>Privacy Policy</h2>
-
-  <p>Brick Swipe is a puzzle game with no advertising, no analytics and no
-  third-party libraries. It uses Apple services only.</p>
-
-  <div class="note">
-    <strong>In short:</strong> There is no server of our own. All data stays
-    with Apple or on your device. Nothing is sold, shared with third parties
-    or used for advertising.
+    <section class="place">
+      <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5.8" rx="7" ry="2.8"/><path d="M5 5.8v12.4c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8V5.8"/><path d="M5 12c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8"/></svg></div>
+      <div>
+        <h3>Im Spielerverzeichnis <span class="tag">nur mit Game Center</span></h3>
+        <p>Eine öffentliche CloudKit-Datenbank, die Apple für Brick Swipe betreibt. Dort stehen:</p>
+        <ul>
+          <li>dein Game-Center-Name und die von Apple vergebene Spielerkennung</li>
+          <li>Rekord und Statistik</li>
+          <li>Einstellungen: Design, Sprache, Erscheinungsbild, Lautstärke, Haptik, Meilensteine</li>
+          <li>Gerätename, wie iOS ihn der App mitteilt (ab iOS 16 nur „iPhone“ oder „iPad“)</li>
+          <li>Zeitpunkt der ersten und der letzten Nutzung</li>
+          <li>für dich freigeschaltete Designs</li>
+        </ul>
+        <dl>
+          <dt>Wozu</dt><dd>Designs freischalten und bei Problemen helfen, etwa eine Statistik korrigieren oder zurücksetzen.</dd>
+          <dt>Sichtbar für</dt><dd>Den Entwickler; er kann Einträge einsehen, korrigieren und löschen. Weil die Datenbank öffentlich ist, lässt sie sich technisch auch aus anderen Installationen der App lesen – deshalb liegt dort nichts außer den genannten Angaben.</dd>
+        </dl>
+      </div>
+    </section>
   </div>
 
-  <h3>What data is processed</h3>
-  <table>
-    <tr><th>Data</th><th>Where</th><th>Why</th></tr>
-    <tr>
-      <td>Game progress, score, settings</td>
-      <td>On your device and in your private iCloud storage</td>
-      <td>So your progress matches across your devices</td>
-    </tr>
-    <tr>
-      <td>Game Center name and leaderboard score</td>
-      <td>Game Center (Apple)</td>
-      <td>Leaderboard</td>
-    </tr>
-    <tr>
-      <td>Game Center name, player identifier, best score, last active date</td>
-      <td>Public CloudKit database</td>
-      <td>Player overview and unlocking of themes</td>
-    </tr>
-    <tr>
-      <td>Motion sensor</td>
-      <td>On device only, never stored</td>
-      <td>Depth effect in the “Galaxy” theme</td>
-    </tr>
-  </table>
+  <h2>Apple als Dienstleister</h2>
+  <p>iCloud, Game Center und CloudKit betreibt Apple. Apple verarbeitet die Daten dabei nach seinen eigenen <a href="https://www.apple.com/de/legal/privacy/">Datenschutzbestimmungen</a> und kann sie auch außerhalb der EU speichern, etwa in den USA.</p>
 
-  <h3>Publicly visible</h3>
-  <p>Entries in the CloudKit database can be read by other people who use
-  Brick Swipe. They contain <strong>only</strong> your Game Center name, the
-  player identifier assigned by Apple, your best score and the date you last
-  played — the same kind of information a leaderboard shows. Your current
-  game state stays private and is not stored there.</p>
+  <h2>Rechtsgrundlage</h2>
+  <p>Der Abgleich über iCloud und die Bestenliste sind Funktionen, die du selbst nutzt (Art. 6 Abs. 1 lit. b DSGVO). Das Spielerverzeichnis dient dem berechtigten Interesse, Designs freizuschalten und bei Problemen zu helfen (Art. 6 Abs. 1 lit. f DSGVO).</p>
 
-  <h3>What does not happen</h3>
-  <ul>
-    <li>No advertising and no advertising identifiers</li>
-    <li>No analytics or tracking tools</li>
+  <h2>Wie lange Daten bleiben</h2>
+  <div class="card">
+    <dl>
+      <dt>Gerät</dt><dd>bis du die App löschst</dd>
+      <dt>iCloud</dt><dd>bis du die Daten dort löschst</dd>
+      <dt>Spielerverzeichnis</dt><dd>solange du die App mit Game Center nutzt oder bis du die Löschung verlangst</dd>
+      <dt>Game Center</dt><dd>nach den Regeln von Apple</dd>
+    </dl>
+  </div>
+
+  <h2>Daten löschen</h2>
+  <ol class="steps">
+    <li><span>Alles auf dem Gerät entfernst du, indem du die App löschst.</span></li>
+    <li><span>Die Kopie in deinem iCloud-Speicher verwaltest du in den iOS-Einstellungen unter <em>[dein Name] → iCloud</em>.</span></li>
+    <li><span>Für das Spielerverzeichnis schreib eine E-Mail mit deinem Game-Center-Namen an die Adresse unten; der Eintrag wird dann gelöscht. Spielst du danach angemeldet weiter, legt die App einen neuen an – melde dich vorher von Game Center ab, wenn du das nicht möchtest.</span></li>
+  </ol>
+
+  <h2>Deine Rechte</h2>
+  <p>Du kannst jederzeit Auskunft über deine Daten verlangen, sie berichtigen, löschen oder einschränken lassen, sie in einem gängigen Format erhalten und der Verarbeitung widersprechen (Art. 15–21 DSGVO). Eine E-Mail genügt. Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren.</p>
+
+  <h2>Kinder</h2>
+  <p>Brick Swipe ist für alle Altersgruppen geeignet und erhebt keine Daten über die oben genannten hinaus.</p>
+
+  <h2>Diese Webseite</h2>
+  <p>Diese Seite liegt bei GitHub Pages (GitHub, Inc., USA). Beim Aufruf verarbeitet GitHub technisch nötige Daten wie deine IP-Adresse, um die Seite auszuliefern. Die Seite selbst setzt keine Cookies und lädt nichts von anderen Anbietern.</p>
+
+  <h2>Änderungen</h2>
+  <p>Ändert sich die App, wird diese Erklärung hier angepasst.</p>
+
+  <section class="card contact">
+    <h2>Verantwortlich und Kontakt</h2>
+    <p>Felix Fiebrich</p>
+    <a class="mail" href="mailto:felix.fiebrich@gmx.de">felix.fiebrich@gmx.de</a>
+  </section>
+  <p class="stand">Stand: 16. September 2026</p>
+</article>
+
+<!-- ======================= ENGLISH ======================= -->
+<article lang="en" id="en">
+  <header class="hero">
+    <p class="eyebrow">Privacy Policy</p>
+    <h1>What Brick Swipe stores – and what it doesn’t.</h1>
+    <p class="lead">Brick Swipe has no server of its own and shows no ads. This page explains what data exists, where it lives and who can see it.</p>
+  </header>
+
+  <ul class="facts">
+    <li>No ads, no tracking, no analytics tools</li>
+    <li>No server of our own – Apple services only</li>
+    <li>No access to camera, microphone, photos, contacts or location</li>
     <li>No sharing or selling of data</li>
-    <li>No collection of name, email address, location or contacts</li>
-    <li>No connection to servers outside Apple</li>
   </ul>
 
-  <h3>Children</h3>
-  <p>The game is suitable for all ages and collects no data that identifies a
-  person outside of Game Center.</p>
+  <h2>Where your data lives</h2>
+  <div class="places">
+    <section class="place">
+      <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 18.3h3"/></svg></div>
+      <div>
+        <h3>On your device</h3>
+        <p>Your current game, best score, statistics and settings.</p>
+        <dl>
+          <dt>Why</dt><dd>So the game picks up where you left off.</dd>
+          <dt>Visible to</dt><dd>Only you.</dd>
+        </dl>
+      </div>
+    </section>
 
-  <h3>Deletion</h3>
-  <p>To have your entry removed from the public database, send a message to
-  the address below and include your Game Center name. Your private game data
-  is removed by deleting the app; the iCloud copy can be deleted in iOS under
-  <em>Apple Account → iCloud</em>.</p>
+    <section class="place">
+      <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10a4.25 4.25 0 0 0 .55-8.46A5.75 5.75 0 0 0 6.4 9.2 4.7 4.7 0 0 0 7 18.5z"/></svg></div>
+      <div>
+        <h3>In your private iCloud storage <span class="tag">iCloud only</span></h3>
+        <p>Best score, statistics (games, highest tile, points, moves, merges) and settings (theme, appearance, haptics, milestone animations, music and sound volume). Your current game is not synced.</p>
+        <dl>
+          <dt>Why</dt><dd>The same progress on all your devices with the same Apple Account.</dd>
+          <dt>Visible to</dt><dd>Only you. The developer has no access.</dd>
+        </dl>
+      </div>
+    </section>
 
-  <h3>Changes</h3>
-  <p>Any changes to this policy will be published on this page.</p>
-</section>
+    <section class="place">
+      <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5h17"/><rect x="4.5" y="12" width="4.2" height="8.5" rx="1"/><rect x="9.9" y="6.5" width="4.2" height="14" rx="1"/><rect x="15.3" y="9.5" width="4.2" height="11" rx="1"/></svg></div>
+      <div>
+        <h3>Game Center <span class="tag">Game Center only</span></h3>
+        <p>Your best score on the leaderboard, together with your Game Center name.</p>
+        <dl>
+          <dt>Why</dt><dd>Leaderboard.</dd>
+          <dt>Visible to</dt><dd>Other Game Center players, depending on your Game Center settings.</dd>
+        </dl>
+      </div>
+    </section>
 
-<footer>
-  <p>Brick Swipe &middot; Felix Fiebrich<br>
-  Kontakt / Contact: <a href="mailto:felix.fiebrich@gmx.de">felix.fiebrich@gmx.de</a></p>
-  <p>Stand / Last updated: 1. September 2026</p>
-</footer>
+    <section class="place">
+      <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5.8" rx="7" ry="2.8"/><path d="M5 5.8v12.4c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8V5.8"/><path d="M5 12c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8"/></svg></div>
+      <div>
+        <h3>In the player directory <span class="tag">Game Center only</span></h3>
+        <p>A public CloudKit database that Apple runs for Brick Swipe. It contains:</p>
+        <ul>
+          <li>your Game Center name and the player ID assigned by Apple</li>
+          <li>best score and statistics</li>
+          <li>settings: theme, language, appearance, volume, haptics, milestones</li>
+          <li>the device name as reported by iOS (from iOS 16 on, just “iPhone” or “iPad”)</li>
+          <li>when you first and last used the app</li>
+          <li>themes unlocked for you</li>
+        </ul>
+        <dl>
+          <dt>Why</dt><dd>To unlock themes and help with problems, for example correcting or resetting statistics.</dd>
+          <dt>Visible to</dt><dd>The developer, who can view, correct and delete entries. Because the database is public, it can technically also be read from other installations of the app – which is why it holds nothing beyond the items listed here.</dd>
+        </dl>
+      </div>
+    </section>
+  </div>
+
+  <h2>Apple as service provider</h2>
+  <p>iCloud, Game Center and CloudKit are operated by Apple. Apple processes this data under its own <a href="https://www.apple.com/legal/privacy/">privacy policy</a> and may store it outside the EU, for example in the United States.</p>
+
+  <h2>Legal basis</h2>
+  <p>Syncing via iCloud and the leaderboard are features you choose to use (Art. 6(1)(b) GDPR). The player directory serves the legitimate interest of unlocking themes and helping with problems (Art. 6(1)(f) GDPR).</p>
+
+  <h2>How long data is kept</h2>
+  <div class="card">
+    <dl>
+      <dt>Device</dt><dd>until you delete the app</dd>
+      <dt>iCloud</dt><dd>until you delete it there</dd>
+      <dt>Player directory</dt><dd>as long as you use the app with Game Center, or until you ask for deletion</dd>
+      <dt>Game Center</dt><dd>according to Apple’s rules</dd>
+    </dl>
+  </div>
+
+  <h2>Deleting your data</h2>
+  <ol class="steps">
+    <li><span>Delete the app to remove everything on your device.</span></li>
+    <li><span>Manage the copy in your iCloud storage in iOS Settings under <em>[your name] → iCloud</em>.</span></li>
+    <li><span>For the player directory, email your Game Center name to the address below and the entry will be deleted. If you keep playing while signed in, the app creates a new one – sign out of Game Center first if you don’t want that.</span></li>
+  </ol>
+
+  <h2>Your rights</h2>
+  <p>You can ask at any time for access to your data, have it corrected, deleted or restricted, receive it in a common format and object to its processing (Art. 15–21 GDPR). An email is enough. You can also lodge a complaint with a data protection supervisory authority.</p>
+
+  <h2>Children</h2>
+  <p>Brick Swipe is suitable for all ages and collects no data beyond what is listed above.</p>
+
+  <h2>This website</h2>
+  <p>This page is hosted on GitHub Pages (GitHub, Inc., USA). When you open it, GitHub processes technically necessary data such as your IP address to deliver the page. The page itself sets no cookies and loads nothing from other providers.</p>
+
+  <h2>Changes</h2>
+  <p>If the app changes, this policy will be updated here.</p>
+
+  <section class="card contact">
+    <h2>Controller and contact</h2>
+    <p>Felix Fiebrich</p>
+    <a class="mail" href="mailto:felix.fiebrich@gmx.de">felix.fiebrich@gmx.de</a>
+  </section>
+  <p class="stand">Last updated: 16 September 2026</p>
+</article>
 
 </main>
+
+<footer>Brick Swipe · Felix Fiebrich</footer>
+
+<script>
+  // Umschalter: Sprache wechseln, ohne zu springen; die Adresse merkt sie sich.
+  (function () {
+    var root = document.documentElement;
+    var titel = { de: "Brick Swipe – Datenschutzerklärung", en: "Brick Swipe – Privacy Policy" };
+    function setze(l) {
+      root.setAttribute("data-lang", l);
+      root.lang = l;
+      document.title = titel[l];
+    }
+    setze(root.getAttribute("data-lang") || "de");
+    var knoepfe = document.querySelectorAll(".switch a");
+    for (var i = 0; i < knoepfe.length; i++) {
+      knoepfe[i].addEventListener("click", function (e) {
+        e.preventDefault();
+        var l = this.getAttribute("href").slice(1);
+        setze(l);
+        if (history.replaceState) history.replaceState(null, "", "#" + l);
+        window.scrollTo(0, 0);
+      });
+    }
+    window.addEventListener("hashchange", function () {
+      var l = location.hash.slice(1);
+      if (l === "de" || l === "en") setze(l);
+    });
+  })();
+</script>
 </body>
 </html>
