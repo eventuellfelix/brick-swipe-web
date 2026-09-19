@@ -24,8 +24,8 @@
     --text: #1d1d1f;
     --muted: #6e6e73;
     --line: #e7e4df;
-    --accent: #e8632a;
-    --accent-soft: #fcede5;
+    --accent: #0a8f7b;
+    --accent-soft: #e2f5f1;
     --on-accent: #ffffff;
     --ok: #2f9e5b;
   }
@@ -36,9 +36,9 @@
       --text: #f2f2f4;
       --muted: #9d9da3;
       --line: #2c2c31;
-      --accent: #ff8a4c;
-      --accent-soft: #2b1e17;
-      --on-accent: #1c1008;
+      --accent: #0db89e;
+      --accent-soft: #10261f;
+      --on-accent: #06201a;
       --ok: #45b873;
     }
   }
@@ -67,10 +67,11 @@
   .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
   .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: -0.01em; }
   .mark { display: grid; grid-template-columns: repeat(2, 10px); gap: 3px; }
-  .mark i { width: 10px; height: 10px; border-radius: 3px; background: var(--accent); }
-  .mark i:nth-child(2) { opacity: .55; }
-  .mark i:nth-child(3) { opacity: .3; }
-  .mark i:nth-child(4) { opacity: .8; }
+  /* Die vier Kacheln aus dem Logo */
+  .mark i { width: 10px; height: 10px; border-radius: 3px; background: #faad61; }
+  .mark i:nth-child(2) { background: #f25438; }
+  .mark i:nth-child(3) { background: #bf388c; }
+  .mark i:nth-child(4) { background: #0db89e; transform: translateX(2px) rotate(8deg); }
   .switch { display: inline-flex; gap: 2px; padding: 3px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
   .switch a { padding: 4px 12px; border-radius: 999px; color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 650; }
   html[data-lang="de"] .switch a[href="#de"],
